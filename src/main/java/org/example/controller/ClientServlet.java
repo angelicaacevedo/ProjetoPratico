@@ -50,6 +50,23 @@ public class ClientServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        try {
+            if ("insert".equals(action)) {
+                insertClient(request, response);
+            } else if ("update".equals(action)) {
+                updateClient(request, response);
+            } else {
+                // Redireciona para a listagem se nenhuma ação foi definida
+                doGet(request, response);
+            }
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
+        }
+    }
+
     private void listClients(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         List<Client> clients = clientDAO.getAllClients();
         request.setAttribute("clientList", clients);
