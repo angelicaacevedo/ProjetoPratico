@@ -1,4 +1,4 @@
-package org.example;
+package org.example.controller;
 
 import org.example.dao.ClientDAO;
 import org.example.model.Client;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/reserva")
-public class ReservaServlet extends HttpServlet {
+public class ReservationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 

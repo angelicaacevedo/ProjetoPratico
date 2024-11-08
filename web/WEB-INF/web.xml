@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>ReservaServlet</servlet-name>
-        <servlet-class>org.example.ReservaServlet</servlet-class>
+        <servlet-class>org.example.controller.ReservationServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
