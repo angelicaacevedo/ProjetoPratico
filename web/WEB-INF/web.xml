@@ -5,13 +5,13 @@
          version="4.0">
 
     <servlet>
-        <servlet-name>ReservaServlet</servlet-name>
+        <servlet-name>ReservationServlet</servlet-name>
         <servlet-class>org.example.controller.ReservationServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ReservaServlet</servlet-name>
-        <url-pattern>/reserva</url-pattern>
+        <servlet-name>ReservationServlet</servlet-name>
+        <url-pattern>/reservation</url-pattern>
     </servlet-mapping>
 
 </web-app>

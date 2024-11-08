@@ -80,11 +80,28 @@ public class ClientServlet extends HttpServlet {
         response.sendRedirect("client?action=list");
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Client existingClient = clientDAO.getAllClients().stream().filter(c -> c.getId() == id).findFirst().orElse(null);
-        request.setAttribute("client", existingClient);
-        request.getRequestDispatcher("/client-form.jsp").forward(request, response);
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idParam = request.getParameter("id");
+        if (idParam == null || idParam.isEmpty()) {
+            request.setAttribute("errorMessage", "Invalid ID provided.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(idParam);
+            Client existingClient = clientDAO.getClientById(id);
+            if (existingClient != null) {
+                request.setAttribute("client", existingClient);
+                request.getRequestDispatcher("/client-form.jsp").forward(request, response);
+            } else {
+                request.setAttribute("errorMessage", "Client not found.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } catch (NumberFormatException | SQLException e) {
+            request.setAttribute("errorMessage", "ID format is invalid.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 
     private void updateClient(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {

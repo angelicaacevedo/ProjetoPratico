@@ -35,6 +35,24 @@ public class TableDAO {
         return tables;
     }
 
+    public Table getTableById(int tableId) throws SQLException {
+        String sql = "SELECT * FROM Tables WHERE table_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, tableId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Table table = new Table();
+                    table.setId(rs.getInt("table_id"));
+                    table.setNumber(rs.getInt("number"));
+                    table.setCapacity(rs.getInt("capacity"));
+                    return table;
+                }
+            }
+        }
+        return null;
+    }
+
     public void updateTable(Table table) throws SQLException {
         String sql = "UPDATE Tables SET number = ?, capacity = ? WHERE table_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();

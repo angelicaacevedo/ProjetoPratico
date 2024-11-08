@@ -78,15 +78,38 @@ public class TableServlet extends HttpServlet {
         response.sendRedirect("table?action=list");
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Table existingTable = tableDAO.getAllTables().stream().filter(t -> t.getId() == id).findFirst().orElse(null);
-        request.setAttribute("table", existingTable);
-        request.getRequestDispatcher("/table-form.jsp").forward(request, response);
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idParam = request.getParameter("id");
+        if (idParam == null || idParam.isEmpty()) {
+            request.setAttribute("errorMessage", "Invalid ID provided.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(idParam);
+            Table existingTable = tableDAO.getTableById(id);
+            if (existingTable != null) {
+                request.setAttribute("table", existingTable);
+                request.getRequestDispatcher("/table-form.jsp").forward(request, response);
+            } else {
+                request.setAttribute("errorMessage", "Table not found.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } catch (NumberFormatException | SQLException e) {
+            request.setAttribute("errorMessage", "ID format is invalid.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 
     private void updateTable(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String idParam = request.getParameter("id");
+        if (idParam == null || idParam.isEmpty()) {
+            response.sendRedirect("table?action=list");
+            return;
+        }
+
+        int id = Integer.parseInt(idParam);
         int number = Integer.parseInt(request.getParameter("number"));
         int capacity = Integer.parseInt(request.getParameter("capacity"));
 

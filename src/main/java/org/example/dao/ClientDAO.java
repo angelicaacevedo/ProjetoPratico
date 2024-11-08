@@ -37,6 +37,25 @@ public class ClientDAO {
         return clients;
     }
 
+    public Client getClientById(int clientId) throws SQLException {
+        String sql = "SELECT * FROM Clients WHERE client_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, clientId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Client client = new Client();
+                    client.setId(rs.getInt("client_id"));
+                    client.setName(rs.getString("name"));
+                    client.setEmail(rs.getString("email"));
+                    client.setPhone(rs.getString("phone"));
+                    return client;
+                }
+            }
+        }
+        return null;
+    }
+
     public void updateClient(Client client) throws SQLException {
         String sql = "UPDATE Clients SET name = ?, email = ?, phone = ? WHERE client_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();

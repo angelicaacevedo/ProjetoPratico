@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/sistema_reservas?useSSL=false&allowPublicKeyRetrieval=true";
+    private static final String URL = "jdbc:mysql://localhost:3306/reservation_system?useSSL=false&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
     private static final String PASSWORD = "Ange@1098";
 

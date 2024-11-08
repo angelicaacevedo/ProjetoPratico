@@ -39,6 +39,26 @@ public class ReservationDAO {
         return reservations;
     }
 
+    public Reservation getReservationById(int reservationId) throws SQLException {
+        String sql = "SELECT * FROM Reservations WHERE reservation_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, reservationId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setId(rs.getInt("reservation_id"));
+                    reservation.setClientId(rs.getInt("client_id"));
+                    reservation.setTableId(rs.getInt("table_id"));
+                    reservation.setDateTime(rs.getTimestamp("date_time").toLocalDateTime());
+                    reservation.setStatus(rs.getString("status"));
+                    return reservation;
+                }
+            }
+        }
+        return null;
+    }
+
     public void updateReservation(Reservation reservation) throws SQLException {
         String sql = "UPDATE Reservations SET client_id = ?, table_id = ?, date_time = ?, status = ? WHERE reservation_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
