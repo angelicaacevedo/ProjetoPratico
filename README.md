@@ -58,8 +58,68 @@ Este sistema foi desenvolvido para gerenciar reservas, clientes e mesas em um re
 #### 5. **Conexão com o Banco de Dados**
 A classe `DatabaseConnection` gerencia a conexão com o banco de dados, garantindo que todas as operações de leitura e escrita no banco de dados sejam realizadas de maneira eficiente e segura.
 
+### 6. **Links Para Testes**
+
+Aqui está a organização dos links com suas descrições para incluir na sua documentação:
+
+### Página Inicial
+- **Acessar a página inicial**:  
+  [Página Inicial](http://localhost:8080/ProjetoPraticoWeb_war_exploded/index.jsp)  
+  **Descrição**: Esta é a página inicial onde você encontrará links para gerenciar Clientes, Mesas e Reservas.
+
 ---
 
-### Conclusão
+### Gerenciamento de Clientes
+- **Listar Clientes**:  
+  [Listar Clientes](http://localhost:8080/ProjetoPraticoWeb_war_exploded/client?action=list)  
+  **Descrição**: Exibe a lista de todos os clientes cadastrados e permite editar ou excluir cada cliente.
 
-Este sistema de gerenciamento de restaurante oferece uma solução prática e eficiente para o controle de clientes, reservas e mesas. Utilizando Java, Servlets, JSP e JDBC, ele garante uma boa separação de responsabilidades entre as camadas de apresentação, controle e persistência de dados. O modelo de banco de dados é simples e eficaz para as necessidades do sistema.
+- **Adicionar Novo Cliente**:  
+  [Adicionar Novo Cliente](http://localhost:8080/ProjetoPraticoWeb_war_exploded/client?action=new)  
+  **Descrição**: Formulário para adicionar um novo cliente com nome, email e telefone.
+
+- **Editar Cliente**:  
+  [Editar Cliente](http://localhost:8080/ProjetoPraticoWeb_war_exploded/client?action=edit&id={clientId})  
+  **Descrição**: Formulário para editar as informações de um cliente existente.
+
+- **Excluir Cliente**:  
+  [Excluir Cliente](http://localhost:8080/ProjetoPraticoWeb_war_exploded/client?action=delete&id={clientId})  
+  **Descrição**: Exclui um cliente específico após confirmação.
+
+---
+
+### Gerenciamento de Mesas
+- **Listar Mesas**:  
+  [Listar Mesas](http://localhost:8080/ProjetoPraticoWeb_war_exploded/table?action=list)  
+  **Descrição**: Exibe a lista de todas as mesas cadastradas e permite editar ou excluir cada mesa.
+
+- **Adicionar Nova Mesa**:  
+  [Adicionar Nova Mesa](http://localhost:8080/ProjetoPraticoWeb_war_exploded/table?action=new)  
+  **Descrição**: Formulário para adicionar uma nova mesa com número e capacidade.
+
+- **Editar Mesa**:  
+  [Editar Mesa](http://localhost:8080/ProjetoPraticoWeb_war_exploded/table?action=edit&id={tableId})  
+  **Descrição**: Formulário para editar as informações de uma mesa existente.
+
+- **Excluir Mesa**:  
+  [Excluir Mesa](http://localhost:8080/ProjetoPraticoWeb_war_exploded/table?action=delete&id={tableId})  
+  **Descrição**: Exclui uma mesa específica após confirmação.
+
+---
+
+### Gerenciamento de Reservas
+- **Listar Reservas**:  
+  [Listar Reservas](http://localhost:8080/ProjetoPraticoWeb_war_exploded/reservation?action=list)  
+  **Descrição**: Exibe a lista de todas as reservas cadastradas e permite editar ou excluir cada reserva.
+
+- **Adicionar Nova Reserva**:  
+  [Adicionar Nova Reserva](http://localhost:8080/ProjetoPraticoWeb_war_exploded/reservation?action=new)  
+  **Descrição**: Formulário para adicionar uma nova reserva, incluindo ID do cliente, ID da mesa, data e hora, e status.
+
+- **Editar Reserva**:  
+  [Editar Reserva](http://localhost:8080/ProjetoPraticoWeb_war_exploded/reservation?action=edit&id={reservationId})  
+  **Descrição**: Formulário para editar as informações de uma reserva existente.
+
+- **Excluir Reserva**:  
+  [Excluir Reserva](http://localhost:8080/ProjetoPraticoWeb_war_exploded/reservation?action=delete&id={reservationId})  
+  **Descrição**: Exclui uma reserva específica após confirmação.
