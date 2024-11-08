@@ -94,20 +94,42 @@ public class ReservationServlet extends HttpServlet {
     }
 
     private void deleteReservation(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String idParam = request.getParameter("id");
+        if (idParam == null || idParam.isEmpty()) {
+            try {
+                request.setAttribute("errorMessage", "Invalid ID provided for deletion.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        int id = Integer.parseInt(idParam);
         reservationDAO.deleteReservation(id);
         response.sendRedirect("reservation?action=list");
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idParam = request.getParameter("id");
+        if (idParam == null || idParam.isEmpty()) {
+            request.setAttribute("errorMessage", "Invalid ID provided for reservation.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+            return;
+        }
+
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(idParam);
             Reservation existingReservation = reservationDAO.getReservationById(id);
-            request.setAttribute("reservation", existingReservation);
-            request.getRequestDispatcher("/reservation-form.jsp").forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Error retrieving reservation details.");
+            if (existingReservation != null) {
+                request.setAttribute("reservation", existingReservation);
+                request.getRequestDispatcher("/reservation-form.jsp").forward(request, response);
+            } else {
+                request.setAttribute("errorMessage", "Reservation not found.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } catch (NumberFormatException | SQLException e) {
+            request.setAttribute("errorMessage", "ID format is invalid.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }

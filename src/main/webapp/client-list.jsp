@@ -10,18 +10,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Client List</title>
+    <title>Lista de Clientes</title>
 </head>
 <body>
-<h2>Client List</h2>
-<a href="client?action=new">Add New Client</a>
+<p>
+    <a href="client?action=list">Clientes</a> |
+    <a href="table?action=list">Mesas</a> |
+    <a href="reservation?action=list">Reservas</a>
+</p>
+
+<h2>Lista de Clientes</h2>
+<a href="client?action=new">Adicionar Novo Cliente</a>
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Name</th>
+        <th>Nome</th>
         <th>Email</th>
-        <th>Phone</th>
-        <th>Actions</th>
+        <th>Telefone</th>
+        <th>Ações</th>
     </tr>
     <c:choose>
         <c:when test="${not empty clientList}">
@@ -32,14 +38,14 @@
                     <td>${client.email}</td>
                     <td>${client.phone}</td>
                     <td>
-                        <a href="client?action=edit&id=${client.id}">Edit</a>
-                        <a href="client?action=delete&id=${client.id}" onclick="return confirm('Are you sure?')">Delete</a>
+                        <a href="client?action=edit&id=${client.id}">Editar</a> |
+                        <a href="client?action=delete&id=${client.id}" onclick="return confirm('Tem certeza?')">Deletar</a>
                     </td>
                 </tr>
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <tr><td colspan="5">No clients available.</td></tr>
+            <tr><td colspan="5">Nenhum cliente disponível.</td></tr>
         </c:otherwise>
     </c:choose>
 </table>

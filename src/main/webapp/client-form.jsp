@@ -9,15 +9,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Client Form</title>
+  <title>${client != null ? "Editar Cliente" : "Novo Cliente"}</title>
 </head>
 <body>
-<h2>${client != null ? "Edit Client" : "New Client"}</h2>
+<h2>${client != null ? "Editar Cliente" : "Novo Cliente"}</h2>
 <form action="client" method="post">
   <input type="hidden" name="action" value="${client != null ? "update" : "insert"}">
   <input type="hidden" name="id" value="${client.id}">
   <p>
-    <label>Name:</label>
+    <label>Nome:</label>
     <input type="text" name="name" value="${client != null ? client.name : ""}" required>
   </p>
   <p>
@@ -25,13 +25,14 @@
     <input type="email" name="email" value="${client != null ? client.email : ""}" required>
   </p>
   <p>
-    <label>Phone:</label>
+    <label>Telefone:</label>
     <input type="text" name="phone" value="${client != null ? client.phone : ""}" required>
   </p>
   <p>
-    <button type="submit">${client != null ? "Update" : "Save"}</button>
-    <a href="client?action=list">Cancel</a>
+    <button type="submit">${client != null ? "Atualizar" : "Salvar"}</button>
+    <a href="client?action=list">Cancelar</a>
   </p>
 </form>
 </body>
 </html>
+

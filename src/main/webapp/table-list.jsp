@@ -10,17 +10,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Table List</title>
+    <title>Lista de Mesas</title>
 </head>
 <body>
-<h2>Table List</h2>
-<a href="table?action=new">Add New Table</a>
+<p>
+    <a href="client?action=list">Clientes</a> |
+    <a href="table?action=list">Mesas</a> |
+    <a href="reservation?action=list">Reservas</a>
+</p>
+
+<h2>Lista de Mesas</h2>
+<a href="table?action=new">Adicionar Nova Mesa</a>
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Number</th>
-        <th>Capacity</th>
-        <th>Actions</th>
+        <th>Número</th>
+        <th>Capacidade</th>
+        <th>Ações</th>
     </tr>
     <c:forEach var="table" items="${tableList}">
         <tr>
@@ -28,8 +34,8 @@
             <td>${table.number}</td>
             <td>${table.capacity}</td>
             <td>
-                <a href="table?action=edit&id=${table.id}">Edit</a> |
-                <a href="table?action=delete&id=${table.id}" onclick="return confirm('Are you sure?')">Delete</a>
+                <a href="table?action=edit&id=${table.id}">Editar</a> |
+                <a href="table?action=delete&id=${table.id}" onclick="return confirm('Tem certeza?')">Deletar</a>
             </td>
         </tr>
     </c:forEach>

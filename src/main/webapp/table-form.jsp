@@ -9,25 +9,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>New Table</title>
+  <title>${table != null ? "Editar Mesa" : "Nova Mesa"}</title>
 </head>
 <body>
-<h2>${table != null ? "Edit Table" : "New Table"}</h2>
+<h2>${table != null ? "Editar Mesa" : "Nova Mesa"}</h2>
 <form action="table" method="post">
   <input type="hidden" name="action" value="${table != null ? "update" : "insert"}">
   <input type="hidden" name="id" value="${table != null ? table.id : ""}">
 
   <p>
-    <label>Number:</label>
+    <label>Número:</label>
     <input type="number" name="number" value="${table != null ? table.number : ""}" required>
   </p>
   <p>
-    <label>Capacity:</label>
+    <label>Capacidade:</label>
     <input type="number" name="capacity" value="${table != null ? table.capacity : ""}" required>
   </p>
   <p>
-    <button type="submit">${table != null ? "Update" : "Save"}</button>
-    <a href="table?action=list">Cancel</a>
+    <button type="submit">${table != null ? "Atualizar" : "Salvar"}</button>
+    <a href="table?action=list">Cancelar</a>
   </p>
 </form>
 </body>
