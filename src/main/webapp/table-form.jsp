@@ -9,29 +9,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Table List</title>
+  <title>New Table</title>
 </head>
 <body>
-<h2>Table List</h2>
-<a href="table?action=new">Add New Table</a>
-<table border="1">
-  <tr>
-    <th>ID</th>
-    <th>Number</th>
-    <th>Capacity</th>
-    <th>Actions</th>
-  </tr>
-  <c:forEach var="table" items="${tableList}">
-    <tr>
-      <td>${table.id}</td>
-      <td>${table.number}</td>
-      <td>${table.capacity}</td>
-      <td>
-        <a href="table?action=edit&id=${table.id}">Edit</a> |
-        <a href="table?action=delete&id=${table.id}" onclick="return confirm('Are you sure?')">Delete</a>
-      </td>
-    </tr>
-  </c:forEach>
-</table>
+<h2>${table != null ? "Edit Table" : "New Table"}</h2>
+<form action="table" method="post">
+  <input type="hidden" name="action" value="${table != null ? "update" : "insert"}">
+  <input type="hidden" name="id" value="${table != null ? table.id : ""}">
+
+  <p>
+    <label>Number:</label>
+    <input type="number" name="number" value="${table != null ? table.number : ""}" required>
+  </p>
+  <p>
+    <label>Capacity:</label>
+    <input type="number" name="capacity" value="${table != null ? table.capacity : ""}" required>
+  </p>
+  <p>
+    <button type="submit">${table != null ? "Update" : "Save"}</button>
+    <a href="table?action=list">Cancel</a>
+  </p>
+</form>
 </body>
 </html>

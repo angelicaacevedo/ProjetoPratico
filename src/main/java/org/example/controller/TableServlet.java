@@ -50,6 +50,23 @@ public class TableServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        try {
+            if ("insert".equals(action)) {
+                insertTable(request, response);
+            } else if ("update".equals(action)) {
+                updateTable(request, response);
+            } else {
+                doGet(request, response); // Redireciona para o método doGet se nenhuma ação foi especificada
+            }
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
+        }
+    }
+
     private void listTables(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         List<Table> tables = tableDAO.getAllTables();
         request.setAttribute("tableList", tables);

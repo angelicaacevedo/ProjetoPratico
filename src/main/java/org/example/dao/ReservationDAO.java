@@ -9,7 +9,7 @@ import java.util.List;
 public class ReservationDAO {
 
     public void insertReservation(Reservation reservation) throws SQLException {
-        String sql = "INSERT INTO Reservations (client_id, table_id, date_time, status) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Reservations (client_id, table_id, reservation_datetime, status) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, reservation.getClientId());
@@ -31,7 +31,7 @@ public class ReservationDAO {
                 reservation.setId(rs.getInt("reservation_id"));
                 reservation.setClientId(rs.getInt("client_id"));
                 reservation.setTableId(rs.getInt("table_id"));
-                reservation.setDateTime(rs.getTimestamp("date_time").toLocalDateTime());
+                reservation.setDateTime(rs.getTimestamp("reservation_datetime").toLocalDateTime());
                 reservation.setStatus(rs.getString("status"));
                 reservations.add(reservation);
             }
@@ -50,7 +50,7 @@ public class ReservationDAO {
                     reservation.setId(rs.getInt("reservation_id"));
                     reservation.setClientId(rs.getInt("client_id"));
                     reservation.setTableId(rs.getInt("table_id"));
-                    reservation.setDateTime(rs.getTimestamp("date_time").toLocalDateTime());
+                    reservation.setDateTime(rs.getTimestamp("reservation_datetime").toLocalDateTime());
                     reservation.setStatus(rs.getString("status"));
                     return reservation;
                 }
@@ -60,7 +60,7 @@ public class ReservationDAO {
     }
 
     public void updateReservation(Reservation reservation) throws SQLException {
-        String sql = "UPDATE Reservations SET client_id = ?, table_id = ?, date_time = ?, status = ? WHERE reservation_id = ?";
+        String sql = "UPDATE Reservations SET client_id = ?, table_id = ?, reservation_datetime = ?, status = ? WHERE reservation_id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, reservation.getClientId());
