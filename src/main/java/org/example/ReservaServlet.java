@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.dao.ClienteDAO;
-import org.example.model.Cliente;
+import org.example.dao.ClientDAO;
+import org.example.model.Client;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,14 +16,14 @@ public class ReservaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
 
-        Cliente cliente = new Cliente();
-        cliente.setNome("Teste Nome");
-        cliente.setEmail("teste@exemplo.com");
-        cliente.setTelefone("123456789");
+        Client client = new Client();
+        client.setName("Teste Nome");
+        client.setEmail("teste@exemplo.com");
+        client.setPhone("123456789");
 
-        ClienteDAO clienteDAO = new ClienteDAO();
+        ClientDAO clientDAO = new ClientDAO();
         try {
-            clienteDAO.inserirCliente(cliente);
+            clientDAO.insertClient(client);
             response.getWriter().println("<h1>Cliente inserido com sucesso!</h1>");
         } catch (SQLException e) {
             e.printStackTrace();
