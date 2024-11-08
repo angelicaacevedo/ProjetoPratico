@@ -6,7 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,12 +32,15 @@
     <th>Status</th>
     <th>Ações</th>
   </tr>
+  <c:if test="${empty reservationList}">
+    <p>Nenhuma reserva disponível.</p>
+  </c:if>
   <c:forEach var="reservation" items="${reservationList}">
     <tr>
       <td>${reservation.id}</td>
       <td>${reservation.clientId}</td>
       <td>${reservation.tableId}</td>
-      <td><fmt:formatDate value="${reservation.dateTime}" pattern="dd/MM/yyyy HH:mm" /></td>
+      <td>${reservation.formattedDate}</td>
       <td>${reservation.status}</td>
       <td>
         <a href="reservation?action=edit&id=${reservation.id}">Editar</a> |

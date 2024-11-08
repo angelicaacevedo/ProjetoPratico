@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @WebServlet("/reservation")
@@ -67,11 +68,21 @@ public class ReservationServlet extends HttpServlet {
         }
     }
 
+
     private void listReservations(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         List<Reservation> reservations = reservationDAO.getAllReservations();
+
+        // Formatar LocalDateTime para String e setar como atributo
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        for (Reservation reservation : reservations) {
+            String formattedDate = reservation.getDateTime().format(formatter);
+            reservation.setFormattedDate(formattedDate);
+        }
+
         request.setAttribute("reservationList", reservations);
         request.getRequestDispatcher("/reservation-list.jsp").forward(request, response);
     }
+
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/reservation-form.jsp").forward(request, response);

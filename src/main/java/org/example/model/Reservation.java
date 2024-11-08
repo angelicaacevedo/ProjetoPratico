@@ -8,6 +8,8 @@ public class Reservation {
     private int tableId;
     private LocalDateTime dateTime;
     private String status;
+    private String formattedDate;
+
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -23,5 +25,13 @@ public class Reservation {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
+    }
 }
 
